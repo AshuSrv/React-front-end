@@ -72,5 +72,4 @@ class App extends Component {
     );
   }
 }
-//Normal Change
 export default App;
