@@ -5,18 +5,12 @@ import axios from 'axios';
 
 class App extends Component {
 
-  state = {
-    username1:null,
-    user: {
-    username: null,
-    accessToken: null,
-    data_access_expiration_time: null,
-    expiresIn: null,
-    signedRequest: null,
-    userID: null
+  constructor() {
+    super();
+    this.state = {
+      user: {}
     }
-  };
-
+  }
   onFacebookLogin = (loginStatus, resultObject) => {
     if (loginStatus === true) {
       console.log(resultObject)
@@ -26,16 +20,18 @@ class App extends Component {
         user: {
         username: resultObject.user.name,
         accessToken: resultObject.authResponse.accessToken,
-        data_access_expiration_time: resultObject.authResponse.data_access_expiration_time,
-        expiresIn: resultObject.authResponse.expiresIn,
-        signedRequest: resultObject.authResponse.signedRequest,
+        pic_url: resultObject.user.picture.data.url,
+        email: resultObject.user.email,
+        provider: "Facebook",
         uid: resultObject.authResponse.userID,
+        secret : ""
         }
       });
     } else {
       alert('Facebook login error');
     }
   }
+
   componentDidUpdate() {
     axios.post('http://localhost:3001/create', this.state.user)
       .then(response => {
@@ -47,14 +43,10 @@ class App extends Component {
 
 
   render() {
-    const { username1 } = this.state;
+    const { username1} = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">React Social Media Login</h1>
-        </header>
-
+      <div>
         <div className="App-intro">
           { !username1 &&
             <div>
@@ -65,7 +57,10 @@ class App extends Component {
             </div>
           }
           {username1 &&
+          <div>
             <p>Welcome back, {username1}</p>
+            {/* <a href="http://localhost:3001/auth/facebook">Click To fetch Additional details</a> */}
+          </div>
           }
         </div>
       </div>

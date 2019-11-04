@@ -42,7 +42,7 @@ class Facebook extends Component {
         
         this.facebookLoginHandler(response);
       } else {
-        this.FB.login(this.facebookLoginHandler, {scope: 'public_profile'});
+        this.FB.login(this.facebookLoginHandler, {scope: 'public_profile,email,user_age_range,user_birthday,user_friends'});
         console.log("this.FB.login");
       }
     }, );
@@ -53,7 +53,7 @@ class Facebook extends Component {
    */
   facebookLoginHandler = response => {
     if (response.status === 'connected') {
-      this.FB.api('/me', userData => {
+      this.FB.api('/me', {fields: 'id,name,email,picture'}, userData => {
         let result = {
           ...response,
           user: userData
