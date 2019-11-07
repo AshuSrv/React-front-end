@@ -18,9 +18,9 @@ class App extends Component {
       this.setState({
         username1: resultObject.user.name,
         user: {
-        username: resultObject.user.name,
-        accessToken: resultObject.authResponse.accessToken,
-        pic_url: resultObject.user.picture.data.url,
+        name: resultObject.user.name,
+        token: resultObject.authResponse.accessToken,
+        profile_image: resultObject.user.picture.data.url,
         email: resultObject.user.email,
         provider: "Facebook",
         uid: resultObject.authResponse.userID,
